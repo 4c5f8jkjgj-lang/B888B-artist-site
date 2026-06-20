@@ -60,7 +60,7 @@ function compareAuctions(a: AuctionSummary, b: AuctionSummary): number {
 
 export default async function HomePage() {
 const [auctions, house] = await Promise.all([
-  Promise.resolve([]),
+  getAllAuctions(),
   getArtistHouse(),
 ])
 
