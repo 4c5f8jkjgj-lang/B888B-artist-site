@@ -59,10 +59,10 @@ function compareAuctions(a: AuctionSummary, b: AuctionSummary): number {
 }
 
 export default async function HomePage() {
-  const [auctions, house] = await Promise.all([
-    getAllAuctions(),
-    getArtistHouse(),
-  ])
+const [auctions, house] = await Promise.all([
+  Promise.resolve([]),
+  getArtistHouse(),
+])
 
   const unique = dedupeByToken(auctions)
   const sorted = [...unique].sort(compareAuctions)
