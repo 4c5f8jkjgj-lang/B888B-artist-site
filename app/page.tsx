@@ -7,7 +7,8 @@ import {
   type AuctionSummary,
 } from "@/lib/auctions"
 
-export const revalidate = 60
+export const dynamic = "force-dynamic"
+export const revalidate = 0
 
 const BUCKET_RANK: Record<ReturnType<typeof bucketFor>, number> = {
   active: 0,
