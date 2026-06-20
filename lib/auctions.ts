@@ -178,8 +178,7 @@ const _getAllAuctionsCached = unstable_cache(
     return fetchAllAuctionsForHouse(house)
   },
   ["all-auctions-v2"],
-  { revalidate: 60, tags: ["all-auctions"] },
-)
+{ revalidate: 3600, tags: ["all-auctions"] },)
 
 export async function getAllAuctions(): Promise<AuctionSummary[]> {
   const { artistAddress } = getConfig()
