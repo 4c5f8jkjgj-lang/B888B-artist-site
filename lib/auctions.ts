@@ -178,7 +178,8 @@ const _getAllAuctionsCached = unstable_cache(
     return fetchAllAuctionsForHouse(house)
   },
   ["all-auctions-v2"],
-{ revalidate: 3600, tags: ["all-auctions"] },)
+  { revalidate: 60, tags: ["all-auctions"] },
+)
 
 export async function getAllAuctions(): Promise<AuctionSummary[]> {
   const { artistAddress } = getConfig()
@@ -273,10 +274,8 @@ async function fetchAllAuctionsForHouse(
     .catch(() => null)
   if (nextId === null || nextId === 0n) return []
 
-const MAX_IDS = 80
-const totalIds = Number(nextId)
-const startId = Math.max(0, totalIds - MAX_IDS)
-const ids = Array.from({ length: totalIds - startId }, (_, i) => BigInt(startId + i))
+  const ids = Array.from({ length: Number(nextId) }, (_, i) => BigInt(i))
+
   // 2. Read current state for every id via multicall. Live/upcoming auctions
   //    return a populated tuple; settled/cancelled ones have had their
   //    storage deleted, so `tokenOwner` comes back as the zero address.
